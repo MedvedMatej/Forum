@@ -93,17 +93,24 @@ class PostController {
         $isDataValid = true;
 
  */
+        $errors = [];
         $data = $_POST;
         $isDataValid = true;
 
+        
 
         if (strlen(basename($_FILES["imgf"]["name"]))>0){
             $data["image"] = basename($_FILES["imgf"]["name"]);
-        }
+            $target_file = IMAGES_URL.$data["image"];
 
-        if ($_FILES["imgf"]["size"] > 500000) {
-            $errors["size"] = "File too large.";
-            $isDataValid = false;
+            if (file_exists($target_file)){
+                $data["image"] = $data["image"]."1";
+            }
+
+            $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+            if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
+                $errors["image"] = "Sorry, only JPG, JPEG, PNG & GIF files are supported.";
+            }
         }
 
         foreach ($errors as $error) {
@@ -111,6 +118,26 @@ class PostController {
         }
 
         if ($isDataValid) {
+            if (strlen(basename($_FILES["imgf"]["name"]))>0){
+
+                if(! is_writable(IMAGES_URL)){
+                    ViewHelper::redirect("nay123");
+                    return;
+                }
+                
+                $target_file = IMAGES_URL.basename($_FILES["imgf"]["name"]);
+                if(move_uploaded_file($_FILES["imgf"]["tmp_name"], $target_file)){
+                    ViewHelper::redirect("yay");
+                    return;
+                    $errors["test"] =$_FILES["imgf"]["error"];
+                    self::showAddForm($data, $errors);
+                }
+                else{
+                    ViewHelper::redirect("nay");
+                    return;
+                }
+            }
+
             PostDB::insert($data["title"], $data["text"], $data["image"], 
                 $data["uid"], $data["tid"]);
             ViewHelper::redirect(BASE_URL . "forum");
