@@ -1,0 +1,1 @@
+<div class="footer">® Matej Medved 2022</div>
