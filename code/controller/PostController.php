@@ -101,10 +101,10 @@ class PostController {
 
         if (strlen(basename($_FILES["imgf"]["name"]))>0){
             $data["image"] = basename($_FILES["imgf"]["name"]);
-            $target_file = IMAGES_URL.$data["image"];
+            $target_file = "static/images/".$data["image"];
 
             if (file_exists($target_file)){
-                $data["image"] = $data["image"]."1";
+                $data["image"] = explode('.',$data["image"])[0].time().".".explode('.',$data["image"])[1];
             }
 
             $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
@@ -119,23 +119,7 @@ class PostController {
 
         if ($isDataValid) {
             if (strlen(basename($_FILES["imgf"]["name"]))>0){
-
-                if(! is_writable(IMAGES_URL)){
-                    ViewHelper::redirect("nay123");
-                    return;
-                }
-                
-                $target_file = IMAGES_URL.basename($_FILES["imgf"]["name"]);
-                if(move_uploaded_file($_FILES["imgf"]["tmp_name"], $target_file)){
-                    ViewHelper::redirect("yay");
-                    return;
-                    $errors["test"] =$_FILES["imgf"]["error"];
-                    self::showAddForm($data, $errors);
-                }
-                else{
-                    ViewHelper::redirect("nay");
-                    return;
-                }
+                rename($_FILES["imgf"]["tmp_name"], "static/images/".$data["image"]);
             }
 
             PostDB::insert($data["title"], $data["text"], $data["image"], 

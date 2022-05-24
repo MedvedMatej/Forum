@@ -15,9 +15,9 @@
     <div class="content">
         <div class="posts">
             <div class="card">
-                <p>Published by <b><?=$post["username"]?></b> at <?= $post["date"] ?></p>
-                <h2><?=$post["title"]?></h2>
-                <p><?=$post["text"]?></p>
+                <p>Published by <b><?=htmlspecialchars($post["username"])?></b> at <?= $post["date"] ?></p>
+                <h2><?=htmlspecialchars($post["title"])?></h2>
+                <p><?=htmlspecialchars($post["text"])?></p>
                 <?php if (!is_null($post["image"])) echo '<img src="'.IMAGES_URL.$post["image"].'">' ?>
                 
                 <?php if (isset($_SESSION["user"])): ?>
@@ -49,6 +49,17 @@
 </div>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript">
+    function escapeHtml(text) {
+    var map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    };
+    
+    return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+    }
 
 $(document).ready(function () {
     $.get("<?= BASE_URL . "api/comment/get/" ?>",
@@ -74,8 +85,8 @@ $(document).ready(function () {
                 if(el["fid"] != null){
                     $("#c-" + el["fid"]).append(
                         `<div class="card-comment-child" id="c-`+el["cid"]+`">
-                                <p><b>` + el["username"]+ `</b> at ` + el["date"] +`</p>
-                                <p>` + el["text"] + `</p>
+                                <p><b>` + escapeHtml(el["username"])+ `</b> at ` + el["date"] +`</p>
+                                <p>` + escapeHtml(el["text"]) + `</p>
                                 `+form+`
                         </div>`
                     );
@@ -83,8 +94,8 @@ $(document).ready(function () {
                 else{
                     $("#comments").append(
                         `<div class="card-comment" id="c-`+el["cid"]+`">
-                                <p><b>` + el["username"]+ `</b> at ` + el["date"] +`</p>
-                                <p>` + el["text"] + `</p>
+                                <p><b>` + escapeHtml(el["username"])+ `</b> at ` + el["date"] +`</p>
+                                <p>` + escapeHtml(el["text"]) + `</p>
                                 `+form+`
                         </div>`
                     );

@@ -37,6 +37,17 @@
 <?php include("templates/footer.php"); ?>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript">
+        function escapeHtml(text) {
+    var map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    };
+    
+    return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+    }
     $(document).ready(function () {
         $.get("<?= BASE_URL . "api/theme/get/" ?>",
             {query: ""},
@@ -44,7 +55,7 @@
                 $("#tselect").html("");
                 for (el of data){
                     $("#tselect").append(
-                        `<option value="`+el["tid"]+`">` +el["name"]+ `</option>`
+                        `<option value="`+el["tid"]+`">` + escapeHtml(el["name"])+ `</option>`
                     );
                 }
         });

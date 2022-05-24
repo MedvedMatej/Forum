@@ -83,7 +83,7 @@ class PostDB {
         $db = DBInit::getInstance();
 
         $statement = $db->prepare("SELECT pid, title, text, image, post.date, post.uid, username 
-            FROM post, user, theme WHERE user.uid = post.uid AND theme.tid = post.tid AND (title RLIKE :query OR text RLIKE :query OR username RLIKE :query OR theme.name RLIKE :query)");
+            FROM post, user, theme WHERE user.uid = post.uid AND theme.tid = post.tid AND (title RLIKE :query OR text RLIKE :query OR username RLIKE :query OR theme.name RLIKE :query) ORDER BY post.date desc");
         $statement->bindValue(":query", $query);
         $statement->execute();
 

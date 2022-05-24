@@ -37,6 +37,18 @@
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript">
+    function escapeHtml(text) {
+    var map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    };
+    
+    return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+    }
+    
     $(document).ready(function () {
         $(".addPost").click(function(){
             window.location.href='<?= BASE_URL . "post/create"?>';
@@ -51,9 +63,9 @@
                     $(".posts").append(
                         `<div class="card">
                             <a href="<?= BASE_URL?>post?id=`+el["pid"]+`">
-                                <p>Posted by <b>` + el["username"] +`</b> at `+el["date"]+` </p>
-                                <h2>` + el["title"] + `</h2>
-                                <p>` + el["text"] + `</p>
+                                <p>Posted by <b>` + escapeHtml(el["username"]) +`</b> at `+el["date"]+` </p>
+                                <h2>` + escapeHtml(el["title"]) + `</h2>
+                                <p>` + escapeHtml(el["text"]) + `</p>
                                 ` + ((el["image"] == null) ? `` : `<img src="<?= IMAGES_URL?>`+el["image"]+`">`) + `
                             </a>
                         </div>`
@@ -72,9 +84,9 @@
                     $(".posts").append(
                         `<div class="card">
                             <a href="<?= BASE_URL?>post?id=`+el["pid"]+`">
-                                <p>` + el["username"] +`</p>
-                                <h2>` + el["title"] + `</h2>
-                                <p>` + el["text"] + `</p>
+                                <p>` + escapeHtml(el["username"]) +`</p>
+                                <h2>` + escapeHtml(el["title"]) + `</h2>
+                                <p>` + escapeHtml(el["text"]) + `</p>
                                 ` + ((el["image"] == null) ? `` : `<img src="<?= IMAGES_URL?>`+el["image"]+`">`) + `
                             </a>
                         </div>`
