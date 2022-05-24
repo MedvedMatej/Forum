@@ -39,7 +39,7 @@ $urls = [
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             PostController::insert();
         } else {
-            PostController::showAddForm();
+            ViewHelper::render("view/create-post-form.php");
         }
     },
     "theme/create" => function () {

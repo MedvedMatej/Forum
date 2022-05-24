@@ -10,14 +10,39 @@ class ThemesController {
     }
 
     public static function insert() {
-        if (ThemesDB::validNewName($_POST["name"])){
-            ThemesDB::insert($_POST["name"], $_POST["desc"]);
-            //maybe umesna stran
-            ViewHelper::render("view/create-post-form.php");
+        $rules = [
+            "name" => FILTER_SANITIZE_SPECIAL_CHARS,
+            "desc" => FILTER_SANITIZE_SPECIAL_CHARS,
+        ];
+
+        $data = filter_input_array(INPUT_POST, $rules);
+
+        $errors["name"] = empty($data["name"]) ? "Name is empty." : "";
+
+
+        $errors = [];
+        $isDataValid = true;
+
+        foreach ($errors as $error) {
+            $isDataValid = $isDataValid && empty($error);
+        }
+
+        if($isDataValid){
+
+            if (ThemesDB::validNewName($_POST["name"])){
+                ThemesDB::insert($_POST["name"], $_POST["desc"]);
+                //maybe umesna stran
+                ViewHelper::render("view/create-post-form.php");
+            }
+            else{
+                ViewHelper::render("view/create-theme-form.php", [
+                    "errorMessage" => "Theme with given name already exists."
+                ]);
+            }
         }
         else{
             ViewHelper::render("view/create-theme-form.php", [
-                "errorMessage" => "Theme with given name already exists."
+                "errorMessage" => "Theme name is empty."
             ]);
         }
     }
