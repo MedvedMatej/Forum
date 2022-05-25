@@ -14,7 +14,7 @@
 
 <div class="content">
 
-    <div class="theme-Form">
+    <div class="theme-Form  col-s-8 col-7">
         <?php if (!empty($errorMessage)): ?>
             <p class="important" style="font-size:20px; margin-bottom:20px;"><?= $errorMessage ?></p>
         <?php endif; ?>

@@ -14,7 +14,7 @@
 
 <div class="content">
 
-    <div class="post-Form">
+    <div class="post-Form col-s-8 col-7">
         <?php if (!empty($errorMessage)): ?>
             <p class="important"><?= $errorMessage ?></p>
         <?php endif; ?>

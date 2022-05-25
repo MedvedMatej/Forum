@@ -29,7 +29,7 @@
                 </div>
                 
                 <!-- LOAD FROM DATABASE -->
-                <div class="posts"></div>
+                <div class="posts col-s-8 col-7"></div>
         </div>
                 
         <?php include("templates/footer.php"); ?>

@@ -13,7 +13,7 @@
     <?php include("templates/header.php"); ?>
     
     <div class="content">
-        <div class="posts">
+        <div class="posts col-s-8 col-7">
             <div class="card">
                 <p>Published by <b><?=htmlspecialchars($post["username"])?></b> at <?= $post["date"] ?></p>
                 <h2><?=htmlspecialchars($post["title"])?></h2>
@@ -43,7 +43,7 @@
             </div>
         </div>
     </div>
-</div>
+
 
 <?php include("templates/footer.php"); ?>
 </div>

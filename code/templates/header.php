@@ -5,7 +5,7 @@
     <?php if ($_SERVER["PATH_INFO"] == "/forum"): ?>
         <div class="center">
             <div class="search">
-                <input type="search" id="search" placeholder="Search...">
+                <input type="search" class="col-s-12 col-12" id="search" placeholder="Search...">
             </div>
         </div>
     <?php endif; ?>

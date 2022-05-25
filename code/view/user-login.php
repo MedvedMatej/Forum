@@ -11,7 +11,7 @@
 <?php include("templates/header.php"); ?>
 
 <div class="content">
-    <div class="login-Form">
+    <div class="login-Form col-s-7 col-4">
         <?php if (!empty($errorMessage)): ?>
             <p class="important" style="font-size:20px; margin-bottom:20px;"><?= $errorMessage ?></p>
         <?php endif; ?>

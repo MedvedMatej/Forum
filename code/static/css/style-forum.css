@@ -32,6 +32,12 @@ textarea {
     height: 50px;
     background-color: var(--main-bg-color);
     padding: 0 10px;
+    flex-wrap: wrap;
+}
+
+.header> div{
+    flex-grow: 1;
+    width: 33%;
 }
 
 .start h1 a{
@@ -46,15 +52,19 @@ textarea {
 }
 
 .search input{
-    width: 500px;
     height: 35px;
     border-radius: 5px;
     padding-left: 5px;
     background-color: var(--light);
 }
 
+.end{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
 .end a{
-    height: 35px;
     border-radius: 5px;
     padding: 5px;
     text-decoration: none;
@@ -70,10 +80,10 @@ textarea {
 
 .content{
     background-color: var(--secondary-bg-color);
-    height: 100%;
     display:flex;
     flex-direction: column;
     align-items: center;
+    flex:auto;
 }
 
 .addPost{
@@ -137,7 +147,7 @@ textarea {
 .card-comment-child{
     background-color: var(--main-bg-color);
     border-radius: 5px;
-    padding-left:20px;
+    padding-left:0.25em;
     box-sizing: border-box;
     margin-top:20px;
 }
@@ -305,6 +315,7 @@ textarea {
 .comment-form-inner{
     display:flex;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .comment-form-inner input{
@@ -320,4 +331,49 @@ textarea {
     padding:5px;
     margin:auto;
     background-color: var(--light);
+}
+
+.container{
+    display:flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+
+
+/* For mobile phones: */
+[class*="col-"] {
+    width: 100%;
+}
+
+@media only screen and (min-width: 600px) and (max-width: 992px) {
+    /* For tablets: */
+    .col-s-1 {width: 8.33%;}
+    .col-s-2 {width: 16.66%;}
+    .col-s-3 {width: 25%;}
+    .col-s-4 {width: 33.33%;}
+    .col-s-5 {width: 41.66%;}
+    .col-s-6 {width: 50%;}
+    .col-s-7 {width: 58.33%;}
+    .col-s-8 {width: 66.66%;}
+    .col-s-9 {width: 75%;}
+    .col-s-10 {width: 83.33%;}
+    .col-s-11 {width: 91.66%;}
+    .col-s-12 {width: 100%;}
+}
+
+@media only screen and (min-width: 992px) {
+/* For desktop: */
+    .col-1 {width: 8.33%;}
+    .col-2 {width: 16.66%;}
+    .col-3 {width: 25%;}
+    .col-4 {width: 33.33%;}
+    .col-5 {width: 41.66%;}
+    .col-6 {width: 50%;}
+    .col-7 {width: 58.33%;}
+    .col-8 {width: 66.66%;}
+    .col-9 {width: 75%;}
+    .col-10 {width: 83.33%;}
+    .col-11 {width: 91.66%;}
+    .col-12 {width: 100%;}
 }
